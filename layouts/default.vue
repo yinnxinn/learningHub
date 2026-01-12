@@ -5,6 +5,7 @@ const { data: navigation } = await useAsyncData('navigation', () =>
 
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
+const logoPath = computed(() => config.public.logoPath || '/logo.png')
 const githubRepoUrl = computed(
   () => config.public.githubRepoUrl || 'https://github.com'
 )
@@ -46,9 +47,16 @@ onBeforeUnmount(() => {
     >
       <NuxtLink
         to="/"
-        class="mb-8 block text-2xl font-black tracking-tight text-slate-900"
+        class="mb-10 flex flex-col items-center text-center transition-opacity hover:opacity-90"
       >
-        {{ siteName }}
+        <img
+          :src="logoPath"
+          :alt="`${siteName} logo`"
+          class="h-24 w-24 shrink-0 rounded-2xl border border-slate-200 bg-white object-contain p-2 shadow-sm"
+        />
+        <span class="mt-3 text-base font-medium text-slate-400">
+          {{ siteName }}
+        </span>
       </NuxtLink>
 
       <div class="space-y-4">
@@ -87,8 +95,16 @@ onBeforeUnmount(() => {
             </svg>
           </button>
 
-          <NuxtLink to="/" class="text-xl font-semibold text-slate-900">
-            {{ siteName }}
+          <NuxtLink
+            to="/"
+            class="flex flex-col items-center text-center text-slate-400"
+          >
+            <img
+              :src="logoPath"
+              :alt="`${siteName} logo`"
+              class="h-16 w-16 shrink-0 rounded-2xl border border-slate-200 bg-white object-contain p-1.5 shadow-sm"
+            />
+            <span class="mt-1 text-sm font-medium">{{ siteName }}</span>
           </NuxtLink>
         </div>
         <div class="flex flex-1 items-center justify-end gap-3">

@@ -1,14 +1,14 @@
 ---
 title: "提交新资源"
 description: "Fork 仓库、提交 PR 的快速指南，并可一键跳转到 GitHub 项目。"
-url: "https://github.com/www19/learning-hub"
+url: "https://github.com/yinnxinn/learningHub"
 tags: ["贡献指南"]
 contributor: "@learning-share"
 recommendation: 5
 ---
 
 ## 提交步骤
-1. Fork 项目仓库并 clone 至本地：`https://github.com/www19/learning-hub`。
+1. Fork 项目仓库并 clone 至本地：`https://github.com/yinnxinn/learningHub`。
 2. 在 `content/` 对应分类下创建新的 Markdown 文件（建议复制下方模板）。
 3. 填写 Frontmatter 与正文说明，运行 `pnpm dev` 自检页面效果。
 4. 提交 Pull Request，等待合并即可上线。

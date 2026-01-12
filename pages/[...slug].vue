@@ -4,15 +4,15 @@ import { ExternalLink, Tag, User } from 'lucide-vue-next'
 const { page } = useContent()
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
-
-useHead(() => {
-  const title = page.value?.title
-  const description = page.value?.description
-  return {
-    title: title ? `${title} - ${siteName.value}` : siteName.value,
-    meta: description ? [{ name: 'description', content: description }] : []
-  }
-})
+const defaultTagline = 'Curated resources for Python, machine learning, and AI'
+const defaultDescription =
+  'Learning Hub curates trusted resources covering Python fundamentals, machine learning, and large language models.'
+const siteTagline = computed(() => config.public.siteTagline || defaultTagline)
+const siteDescription = computed(
+  () => config.public.siteDescription || defaultDescription
+)
+const siteUrl = computed(() => config.public.siteUrl || '')
+const logoPath = computed(() => config.public.logoPath || '/logo.png')
 
 const tags = computed(() => page.value?.tags ?? [])
 const contributor = computed(() => page.value?.contributor ?? '')
@@ -22,6 +22,64 @@ const currentPath = computed(() => page.value?._path ?? '')
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+const normalizedSiteUrl = computed(() =>
+  siteUrl.value ? siteUrl.value.replace(/\/+$/, '') : ''
+)
+
+const canonicalUrl = computed(() => {
+  if (!normalizedSiteUrl.value || !currentPath.value) {
+    return ''
+  }
+  return `${normalizedSiteUrl.value}${currentPath.value === '/' ? '' : currentPath.value}`
+})
+
+const metaTitle = computed(() => {
+  if (page.value?.title) {
+    return `${page.value.title} - ${siteName.value}`
+  }
+  return `${siteName.value} - ${siteTagline.value}`
+})
+
+const metaDescription = computed(
+  () => page.value?.description || siteDescription.value
+)
+
+const ogImage = computed(() => {
+  if (typeof cover.value === 'string' && cover.value.length > 0) {
+    return cover.value
+  }
+  return logoPath.value
+})
+
+const ogType = computed(() =>
+  currentPath.value === '/' ? 'website' : 'article'
+)
+
+useSeoMeta(() => ({
+  title: metaTitle.value,
+  description: metaDescription.value,
+  ogTitle: metaTitle.value,
+  ogDescription: metaDescription.value,
+  ogType: ogType.value,
+  ogUrl: canonicalUrl.value || undefined,
+  ogImage: ogImage.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: metaTitle.value,
+  twitterDescription: metaDescription.value,
+  twitterImage: ogImage.value
+}))
+
+useHead(() => ({
+  link: canonicalUrl.value
+    ? [
+        {
+          rel: 'canonical',
+          href: canonicalUrl.value
+        }
+      ]
+    : []
+}))
 
 const { data: sectionEntries } = await useAsyncData(
   'section-entries',
