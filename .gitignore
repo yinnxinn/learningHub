@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+
+# Nuxt build output
+.nuxt
+.output
+.nitro
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*

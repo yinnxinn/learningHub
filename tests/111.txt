@@ -1,0 +1,67 @@
+https://zh.d2l.ai/chapter_convolutional-neural-networks/index.html
+https://blog.csdn.net/shenxiaoming77/article/details/50427303
+https://zh.d2l.ai/chapter_recurrent-neural-networks/bptt.html
+
+
+一、综合性最强
+arXiv.org
+链接: https://arxiv.org/
+
+Google Scholar
+链接: https://scholar.google.com/
+
+二、AI智能搜索引擎 
+Semantic Scholar
+链接: https://www.semanticscholar.org/
+
+Connected Papers
+链接: https://www.connectedpapers.com/
+
+三、代码与论文结合的平台 
+Papers with Code
+链接: https://paperswithcode.com/
+
+四、顶级会议论文网站 
+
+机器学习 (Machine Learning)
+NeurIPS: https://proceedings.neurips.cc/
+
+计算机视觉 (Computer Vision)
+CVPR: https://openaccess.thecvf.com/menu
+
+自然语言处理 (Natural Language Processing)
+ACL: https://aclanthology.org/
+
+
+https://jalammar.github.io/illustrated-bert/
+https://jalammar.github.io/illustrated-gpt2/
+https://dazi.co/index
+https://www.bookstack.cn/ 相关资料网站
+
+Python学习
+1. Python-Core-50-Courses (Python核心50课)
+GitHub: https://github.com/jackfrued/Python-Core-50-Courses
+特点: 精选50个Python核心知识点
+AI学习
+1. Machine-Learning-for-Beginners (微软机器学习入门)
+GitHub: https://github.com/microsoft/ML-For-Beginners
+特点: 微软官方出品，12周课程
+适合: 经典ML算法 
+2. AI-For-Beginners (微软AI入门)
+GitHub: https://github.com/microsoft/AI-For-Beginners
+特点: 微软AI入门课程，24课时
+
+Pandas学习：
+Pandas-Cookbook (Pandas烹饪书)
+GitHub: https://github.com/jvns/pandas-cookbook
+特点: 实用的Pandas使用技巧
+
+NumPy学习
+https://numpy.org/doc/stable/user/quickstart.html
+特点: 官方快速入门指南
+
+很好的教程：
+莫烦Python: https://mofanpy.com/
+菜鸟教程Python: https://www.runoob.com/python3/python3-tutorial.html
+
+https://jalammar.github.io/illustrated-transformer/
