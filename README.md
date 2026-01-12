@@ -1,4 +1,4 @@
-# Learning Hub
+# 智码资料分享平台
 
 一个基于 Nuxt 3 与 Nuxt Content 的开源学习资源导航站。通过 GitHub Pull Request 即可新增或更新内容，无需传统后台即可完成提审、发布与版本留存。
 
