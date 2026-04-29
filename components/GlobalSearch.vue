@@ -11,9 +11,43 @@ const emit = defineEmits<{
 
 const query = ref('')
 const debouncedQuery = ref('')
+const activeSection = ref('all')
 const searchInput = ref<HTMLInputElement | null>(null)
 const router = useRouter()
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
+const sectionFilters = [
+  { key: 'all', label: '全部内容', pathPrefix: '' },
+  { key: 'news', label: '资讯头部', pathPrefix: '/01.ai-news' },
+  { key: 'learning', label: '核心学习', pathPrefix: '/02.ai-core-learning' },
+  { key: 'oss', label: '开源项目', pathPrefix: '/03.ai-open-source' }
+] as const
+
+const sectionNameByPrefix: Record<string, string> = {
+  '/01.ai-news': 'AI圈资讯头部',
+  '/02.ai-core-learning': 'AI圈核心学习资料',
+  '/03.ai-open-source': 'AI相关知名开源项目'
+}
+
+const activeSectionConfig = computed(
+  () => sectionFilters.find((item) => item.key === activeSection.value) ?? sectionFilters[0]
+)
+
+const escapeForRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+const resolveSectionLabel = (path: string) => {
+  const matchedPrefix = Object.keys(sectionNameByPrefix).find((prefix) =>
+    path.startsWith(prefix)
+  )
+  return matchedPrefix ? sectionNameByPrefix[matchedPrefix] : '其他内容'
+}
+
+const recommendationStars = (value?: number) => {
+  if (!value || value < 1) {
+    return ''
+  }
+  return '★'.repeat(Math.min(5, Math.max(1, Math.round(value))))
+}
 
 const { data: results, status, refresh } = await useAsyncData(
   'global-search',
@@ -21,14 +55,22 @@ const { data: results, status, refresh } = await useAsyncData(
     if (!debouncedQuery.value) {
       return []
     }
-    return queryContent()
-      .search(debouncedQuery.value)
-      .limit(12)
-      .find()
+    const filter = activeSectionConfig.value
+    const builder = queryContent().search(debouncedQuery.value).limit(12)
+
+    if (filter.pathPrefix) {
+      builder.where({
+        _path: {
+          $regex: `^${escapeForRegex(filter.pathPrefix)}`
+        }
+      })
+    }
+
+    return builder.find()
   },
   {
     immediate: false,
-    watch: [debouncedQuery]
+    watch: [debouncedQuery, activeSection]
   }
 )
 
@@ -52,6 +94,7 @@ watch(
   (value) => {
     if (value) {
       query.value = ''
+      activeSection.value = 'all'
       refresh()
       nextTick(() => {
         searchInput.value?.focus()
@@ -112,6 +155,23 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="max-h-[60vh] overflow-y-auto px-3 py-4">
+        <div class="mb-3 flex flex-wrap gap-2 px-2">
+          <button
+            v-for="filter in sectionFilters"
+            :key="filter.key"
+            type="button"
+            class="rounded-full border px-3 py-1 text-xs font-semibold transition"
+            :class="
+              activeSection === filter.key
+                ? 'border-blue-200 bg-blue-50 text-blue-700'
+                : 'border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:text-blue-700'
+            "
+            @click="activeSection = filter.key"
+          >
+            {{ filter.label }}
+          </button>
+        </div>
+
         <p v-if="!query" class="px-2 py-3 text-sm text-slate-500">
           输入关键字开始搜索。支持标题、标签与正文匹配。
         </p>
@@ -134,6 +194,17 @@ onBeforeUnmount(() => {
               <span class="text-sm font-semibold text-slate-900">
                 {{ item.title || item._path }}
               </span>
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="rounded-full bg-blue-100 px-2 py-0.5 font-semibold text-blue-700">
+                  {{ resolveSectionLabel(item._path) }}
+                </span>
+                <span
+                  v-if="item.recommendation"
+                  class="rounded-full bg-amber-100 px-2 py-0.5 font-semibold text-amber-700"
+                >
+                  {{ recommendationStars(item.recommendation) }}
+                </span>
+              </div>
               <span class="text-xs uppercase tracking-wide text-blue-500">
                 {{ item._path }}
               </span>
@@ -143,6 +214,15 @@ onBeforeUnmount(() => {
               >
                 {{ item.description }}
               </span>
+              <div v-if="item.tags?.length" class="mt-1 flex flex-wrap gap-1">
+                <span
+                  v-for="tag in item.tags.slice(0, 3)"
+                  :key="tag"
+                  class="rounded bg-slate-200 px-1.5 py-0.5 text-[11px] text-slate-600"
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </button>
           </li>
         </ul>

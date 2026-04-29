@@ -110,6 +110,58 @@ const { data: sectionEntries } = await useAsyncData(
 )
 
 const sectionChildren = computed(() => sectionEntries.value ?? [])
+
+const sectionRoot = computed(() => {
+  const value = currentPath.value
+  const parts = value.split('/').filter(Boolean)
+  if (!parts.length) {
+    return ''
+  }
+  return `/${parts[0]}`
+})
+
+const sectionLabelMap: Record<string, string> = {
+  '/01.ai-news': 'AI圈资讯头部',
+  '/02.ai-core-learning': 'AI圈核心学习资料',
+  '/03.ai-open-source': 'AI相关知名开源项目'
+}
+
+const sectionLabel = computed(() => sectionLabelMap[sectionRoot.value] || '资源')
+
+const estimatedReadMinutes = computed(() => {
+  const bodyLength = JSON.stringify(page.value?.body || '').length
+  return Math.max(1, Math.round(bodyLength / 1200))
+})
+
+const { data: relatedByTag } = await useAsyncData(
+  'related-by-tag',
+  async () => {
+    const root = sectionRoot.value
+    const tag = tags.value?.[0]
+
+    if (!root || !tag) {
+      return []
+    }
+
+    const docs = await queryContent()
+      .where({
+        _path: {
+          $regex: `^${escapeRegExp(root)}/[^/]+$`
+        },
+        tags: {
+          $contains: tag
+        }
+      })
+      .sort({ recommendation: -1, title: 1 })
+      .limit(4)
+      .find()
+
+    return docs.filter((doc) => doc._path !== currentPath.value)
+  },
+  {
+    watch: [currentPath, tags]
+  }
+)
 </script>
 
 <template>
@@ -117,6 +169,16 @@ const sectionChildren = computed(() => sectionEntries.value ?? [])
     <template #default="{ doc }">
       <article class="flex flex-col gap-10">
         <header class="space-y-6">
+          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+            <NuxtLink to="/" class="hover:text-blue-600">首页</NuxtLink>
+            <span>/</span>
+            <NuxtLink :to="sectionRoot || '/'" class="hover:text-blue-600">
+              {{ sectionLabel }}
+            </NuxtLink>
+            <span>/</span>
+            <span class="text-slate-700">{{ doc.title || '未命名文档' }}</span>
+          </div>
+
           <div class="space-y-2">
             <p class="text-sm font-semibold uppercase tracking-widest text-blue-500">
               {{ doc.collection || 'Resource' }}
@@ -151,6 +213,9 @@ const sectionChildren = computed(() => sectionEntries.value ?? [])
               class="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 text-amber-700"
             >
               推荐指数 {{ recommendation }}/5
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-slate-700">
+              预计阅读 {{ estimatedReadMinutes }} 分钟
             </span>
             <div
               v-if="tags?.length"
@@ -208,6 +273,23 @@ const sectionChildren = computed(() => sectionEntries.value ?? [])
                   {{ tag }}
                 </span>
               </div>
+            </NuxtLink>
+          </div>
+        </section>
+
+        <section v-if="relatedByTag?.length" class="space-y-4">
+          <h2 class="text-2xl font-semibold text-slate-900">同标签推荐</h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <NuxtLink
+              v-for="item in relatedByTag"
+              :key="item._path"
+              :to="item._path"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-3 transition hover:border-blue-200 hover:bg-blue-50"
+            >
+              <p class="font-semibold text-slate-900">{{ item.title || item._path }}</p>
+              <p v-if="item.description" class="mt-1 line-clamp-2 text-sm text-slate-600">
+                {{ item.description }}
+              </p>
             </NuxtLink>
           </div>
         </section>
