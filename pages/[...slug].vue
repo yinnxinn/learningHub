@@ -125,8 +125,16 @@ const sectionLabelMap: Record<string, string> = {
   '/02.ai-core-learning': 'AI圈核心学习资料',
   '/03.ai-open-source': 'AI相关知名开源项目'
 }
+const sectionHomePathMap: Record<string, string> = {
+  '/01.ai-news': '/ai-news',
+  '/02.ai-core-learning': '/ai-core-learning',
+  '/03.ai-open-source': '/ai-open-source'
+}
 
 const sectionLabel = computed(() => sectionLabelMap[sectionRoot.value] || '资源')
+const sectionHomePath = computed(
+  () => sectionHomePathMap[sectionRoot.value] || sectionRoot.value || '/'
+)
 
 const estimatedReadMinutes = computed(() => {
   const bodyLength = JSON.stringify(page.value?.body || '').length
@@ -172,7 +180,7 @@ const { data: relatedByTag } = await useAsyncData(
           <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
             <NuxtLink to="/" class="hover:text-blue-600">首页</NuxtLink>
             <span>/</span>
-            <NuxtLink :to="sectionRoot || '/'" class="hover:text-blue-600">
+            <NuxtLink :to="sectionHomePath" class="hover:text-blue-600">
               {{ sectionLabel }}
             </NuxtLink>
             <span>/</span>

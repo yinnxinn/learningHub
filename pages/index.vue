@@ -16,6 +16,7 @@ interface HomeSection {
   key: string
   title: string
   path: string
+  contentPath: string
   description: string
   tone: string
 }
@@ -39,21 +40,24 @@ const featuredSections: HomeSection[] = [
   {
     key: 'news',
     title: 'AI圈资讯头部',
-    path: '/01.ai-news',
+    path: '/ai-news',
+    contentPath: '/01.ai-news',
     description: '聚焦官方发布、头部媒体与研究动态入口。',
     tone: 'from-indigo-50 to-blue-50'
   },
   {
     key: 'learning',
     title: 'AI圈核心学习资料',
-    path: '/02.ai-core-learning',
+    path: '/ai-core-learning',
+    contentPath: '/02.ai-core-learning',
     description: '覆盖基础理论、实战路线与体系化学习路径。',
     tone: 'from-emerald-50 to-cyan-50'
   },
   {
     key: 'open-source',
     title: 'AI相关知名开源项目',
-    path: '/03.ai-open-source',
+    path: '/ai-open-source',
+    contentPath: '/03.ai-open-source',
     description: '精选高影响力开源项目，帮助快速建立技术版图。',
     tone: 'from-amber-50 to-orange-50'
   }
@@ -66,7 +70,7 @@ const { data: sectionCards } = await useAsyncData<HomeSectionCard[]>(
   async () => {
   const payload = await Promise.all(
     featuredSections.map(async (section) => {
-      const pattern = `^${pathEscape(section.path)}/[^/]+$`
+      const pattern = `^${pathEscape(section.contentPath)}/[^/]+$`
       const docs = await queryContent()
         .where({
           _path: {
