@@ -55,6 +55,12 @@ const sanitizeNavigation = (items: NavigationItem[] = []): NavigationItem[] => {
 }
 
 const cleanedNavigation = computed(() => sanitizeNavigation((navigation.value || []) as NavigationItem[]))
+const topLevelNavigation = computed(() =>
+  cleanedNavigation.value.map((item) => ({
+    ...item,
+    children: []
+  }))
+)
 
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
@@ -113,7 +119,7 @@ onBeforeUnmount(() => {
       </NuxtLink>
 
       <div class="space-y-4">
-        <NavigationTree v-if="cleanedNavigation?.length" :items="cleanedNavigation" />
+        <NavigationTree v-if="topLevelNavigation?.length" :items="topLevelNavigation" />
         <p v-else class="text-sm text-slate-500">
           暂无导航内容。请在
           <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">content/</code>
@@ -199,7 +205,7 @@ onBeforeUnmount(() => {
       <MobileNavigation
         v-if="mobileNavOpen"
         :open="mobileNavOpen"
-        :navigation="cleanedNavigation || []"
+        :navigation="topLevelNavigation || []"
         @close="closeMobileNav"
       />
     </ClientOnly>
