@@ -126,9 +126,9 @@ const sectionLabelMap: Record<string, string> = {
   '/03.ai-open-source': '知名开源项目'
 }
 const sectionHomePathMap: Record<string, string> = {
-  '/01.ai-news': '/ai-news',
-  '/02.ai-core-learning': '/ai-core-learning',
-  '/03.ai-open-source': '/ai-open-source'
+  '/01.ai-news': '/news',
+  '/02.ai-core-learning': '/learning',
+  '/03.ai-open-source': '/open-source'
 }
 
 const sectionLabel = computed(() => sectionLabelMap[sectionRoot.value] || '资源')

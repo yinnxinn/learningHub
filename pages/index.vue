@@ -40,7 +40,7 @@ const featuredSections: HomeSection[] = [
   {
     key: 'news',
     title: '资讯头部',
-    path: '/ai-news',
+    path: '/news',
     contentPath: '/01.ai-news',
     description: '聚焦官方发布、头部媒体与研究动态入口。',
     tone: 'from-indigo-50 to-blue-50'
@@ -48,7 +48,7 @@ const featuredSections: HomeSection[] = [
   {
     key: 'learning',
     title: '核心学习资料',
-    path: '/ai-core-learning',
+    path: '/learning',
     contentPath: '/02.ai-core-learning',
     description: '覆盖基础理论、实战路线与体系化学习路径。',
     tone: 'from-emerald-50 to-cyan-50'
@@ -56,7 +56,7 @@ const featuredSections: HomeSection[] = [
   {
     key: 'open-source',
     title: '知名开源项目',
-    path: '/ai-open-source',
+    path: '/open-source',
     contentPath: '/03.ai-open-source',
     description: '精选高影响力开源项目，帮助快速建立技术版图。',
     tone: 'from-amber-50 to-orange-50'
