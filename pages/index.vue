@@ -26,6 +26,7 @@ interface SectionDocPreview {
   _path: string
   title?: string
   description?: string
+  url?: string
   recommendation?: number
   tags?: string[]
 }
@@ -78,7 +79,7 @@ const { data: sectionCards } = await useAsyncData<HomeSectionCard[]>(
           }
         })
         .sort({ recommendation: -1, title: 1 })
-        .limit(6)
+        .limit(20)
         .find()
 
       return {
@@ -261,9 +262,9 @@ useHead(() => ({
 
             <ul class="mt-4 flex flex-1 flex-col gap-3">
               <li
-                v-for="item in section.items.slice(0, 4)"
+                v-for="item in section.items"
                 :key="item._id"
-                class="rounded-xl border border-slate-100 bg-slate-50 px-3 py-2"
+                class="rounded-xl border border-slate-100 bg-slate-50 px-3 py-3"
               >
                 <div class="flex items-start justify-between gap-2">
                   <NuxtLink :to="item._path" class="text-sm font-medium text-slate-800 hover:text-blue-700">
@@ -278,6 +279,19 @@ useHead(() => ({
                 </div>
                 <p v-if="item.description" class="mt-1 line-clamp-2 text-xs text-slate-600">
                   {{ item.description }}
+                </p>
+                <p class="mt-1 text-xs text-slate-500">
+                  地址：
+                  <a
+                    v-if="item.url"
+                    :href="item.url"
+                    target="_blank"
+                    rel="noopener"
+                    class="break-all text-blue-600 hover:text-blue-700"
+                  >
+                    {{ item.url }}
+                  </a>
+                  <span v-else class="break-all">{{ item._path }}</span>
                 </p>
                 <div v-if="item.tags?.length" class="mt-1 flex flex-wrap gap-1">
                   <span
