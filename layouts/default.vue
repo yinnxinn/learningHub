@@ -9,8 +9,35 @@ interface NavigationItem {
   children?: NavigationItem[]
 }
 
+const dedupeByIdentity = (items: NavigationItem[] = []): NavigationItem[] => {
+  const merged = new Map<string, NavigationItem>()
+
+  for (const item of items) {
+    const identity = item._path || item.title || JSON.stringify(item)
+    const existing = merged.get(identity)
+
+    if (!existing) {
+      merged.set(identity, {
+        ...item,
+        children: item.children ? [...item.children] : []
+      })
+      continue
+    }
+
+    merged.set(identity, {
+      ...existing,
+      ...item,
+      _path: existing._path || item._path,
+      title: existing.title || item.title,
+      children: [...(existing.children || []), ...(item.children || [])]
+    })
+  }
+
+  return Array.from(merged.values())
+}
+
 const sanitizeNavigation = (items: NavigationItem[] = []): NavigationItem[] => {
-  return items.map((item) => {
+  const normalized = items.map((item) => {
     const normalizedChildren = sanitizeNavigation(item.children || [])
     const dedupedChildren = normalizedChildren.filter((child) => {
       const samePath = Boolean(child._path && item._path && child._path === item._path)
@@ -23,6 +50,8 @@ const sanitizeNavigation = (items: NavigationItem[] = []): NavigationItem[] => {
       children: dedupedChildren
     }
   })
+
+  return dedupeByIdentity(normalized)
 }
 
 const cleanedNavigation = computed(() => sanitizeNavigation((navigation.value || []) as NavigationItem[]))
