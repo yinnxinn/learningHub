@@ -3,6 +3,30 @@ const { data: navigation } = await useAsyncData('navigation', () =>
   fetchContentNavigation()
 )
 
+interface NavigationItem {
+  _path?: string
+  title?: string
+  children?: NavigationItem[]
+}
+
+const sanitizeNavigation = (items: NavigationItem[] = []): NavigationItem[] => {
+  return items.map((item) => {
+    const normalizedChildren = sanitizeNavigation(item.children || [])
+    const dedupedChildren = normalizedChildren.filter((child) => {
+      const samePath = Boolean(child._path && item._path && child._path === item._path)
+      const sameTitle = Boolean(child.title && item.title && child.title === item.title)
+      return !(samePath || sameTitle)
+    })
+
+    return {
+      ...item,
+      children: dedupedChildren
+    }
+  })
+}
+
+const cleanedNavigation = computed(() => sanitizeNavigation((navigation.value || []) as NavigationItem[]))
+
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
 const logoPath = computed(() => config.public.logoPath || '/logo.png')
@@ -60,7 +84,7 @@ onBeforeUnmount(() => {
       </NuxtLink>
 
       <div class="space-y-4">
-        <NavigationTree v-if="navigation?.length" :items="navigation" />
+        <NavigationTree v-if="cleanedNavigation?.length" :items="cleanedNavigation" />
         <p v-else class="text-sm text-slate-500">
           暂无导航内容。请在
           <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">content/</code>
@@ -146,7 +170,7 @@ onBeforeUnmount(() => {
       <MobileNavigation
         v-if="mobileNavOpen"
         :open="mobileNavOpen"
-        :navigation="navigation || []"
+        :navigation="cleanedNavigation || []"
         @close="closeMobileNav"
       />
     </ClientOnly>
