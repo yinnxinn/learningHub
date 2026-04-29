@@ -1,6 +1,6 @@
 ---
-title: "AI相关知名开源项目"
-description: "精选高活跃、高影响力的 AI 开源项目，帮助你建立技术版图。"
+title: "知名开源项目"
+description: "精选高活跃、高影响力的开源项目，帮助你建立技术版图。"
 tags: ["Open Source", "LLM", "Tooling"]
 ---
 

@@ -24,9 +24,9 @@ const sectionFilters = [
 ] as const
 
 const sectionNameByPrefix: Record<string, string> = {
-  '/01.ai-news': 'AI圈资讯头部',
-  '/02.ai-core-learning': 'AI圈核心学习资料',
-  '/03.ai-open-source': 'AI相关知名开源项目'
+  '/01.ai-news': '资讯头部',
+  '/02.ai-core-learning': '核心学习资料',
+  '/03.ai-open-source': '知名开源项目'
 }
 
 const activeSectionConfig = computed(
@@ -205,9 +205,6 @@ onBeforeUnmount(() => {
                   {{ recommendationStars(item.recommendation) }}
                 </span>
               </div>
-              <span class="text-xs uppercase tracking-wide text-blue-500">
-                {{ item._path }}
-              </span>
               <span
                 v-if="item.description"
                 class="line-clamp-2 text-sm text-slate-600"

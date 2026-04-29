@@ -1,5 +1,5 @@
 ---
-title: "AI圈核心学习资料"
+title: "核心学习资料"
 description: "从基础到进阶，覆盖理论、实践与大模型工程的核心学习路径。"
 tags: ["Learning Path", "ML", "LLM"]
 ---

@@ -1,9 +1,9 @@
 ---
-title: "国内机构与实验室动态（智谱 / 阶跃星辰 / 上海AI实验室）"
+title: "国内机构与实验室动态（智谱 / 阶跃星辰 / 上海实验室）"
 description: "跟踪国内头部团队的模型发布、技术路线与开源动作。"
 url: "https://www.zhipuai.cn/news"
 tags: ["中文资讯", "国内AI机构", "模型发布"]
-contributor: "@cursor-agent"
+contributor: "@zhima"
 recommendation: 4
 ---
 

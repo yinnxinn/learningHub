@@ -2,9 +2,9 @@
 const { page } = useContent()
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
-const defaultTagline = 'Curated resources for Python, machine learning, and AI'
+const defaultTagline = 'Curated resources for Python and machine learning'
 const defaultDescription =
-  'Learning Hub curates trusted resources covering Python fundamentals, machine learning, and large language models.'
+  'Learning Hub curates trusted resources covering Python fundamentals, machine learning, and practical tooling.'
 const siteTagline = computed(() => config.public.siteTagline || defaultTagline)
 const siteDescription = computed(
   () => config.public.siteDescription || defaultDescription
@@ -39,7 +39,7 @@ interface HomeSectionCard extends HomeSection {
 const featuredSections: HomeSection[] = [
   {
     key: 'news',
-    title: 'AI圈资讯头部',
+    title: '资讯头部',
     path: '/ai-news',
     contentPath: '/01.ai-news',
     description: '聚焦官方发布、头部媒体与研究动态入口。',
@@ -47,7 +47,7 @@ const featuredSections: HomeSection[] = [
   },
   {
     key: 'learning',
-    title: 'AI圈核心学习资料',
+    title: '核心学习资料',
     path: '/ai-core-learning',
     contentPath: '/02.ai-core-learning',
     description: '覆盖基础理论、实战路线与体系化学习路径。',
@@ -55,7 +55,7 @@ const featuredSections: HomeSection[] = [
   },
   {
     key: 'open-source',
-    title: 'AI相关知名开源项目',
+    title: '知名开源项目',
     path: '/ai-open-source',
     contentPath: '/03.ai-open-source',
     description: '精选高影响力开源项目，帮助快速建立技术版图。',
@@ -124,6 +124,19 @@ const recommendationStars = (value?: number) => {
   }
   return '★'.repeat(Math.min(5, Math.max(1, Math.round(value))))
 }
+
+const beginnerQuickLinks = [
+  {
+    title: 'Python 三方包入门清单',
+    path: '/02.ai-core-learning/python-third-party-starter',
+    description: '整理初学者最常用的 10 个经典包和学习顺序。'
+  },
+  {
+    title: 'Python 工程开发常用包',
+    path: '/02.ai-core-learning/python-web-toolkit',
+    description: '覆盖 Web 开发与工程化常用工具包。'
+  }
+]
 
 const normalizedSiteUrl = computed(() =>
   siteUrl.value ? siteUrl.value.replace(/\/+$/, '') : ''
@@ -285,6 +298,24 @@ useHead(() => ({
               查看本栏目
             </NuxtLink>
           </article>
+        </div>
+      </section>
+
+      <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">初学者入门推荐</h2>
+        <p class="mt-1 text-sm text-slate-600">
+          如果你刚开始学习，建议先完成下面两份基础清单。
+        </p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <NuxtLink
+            v-for="item in beginnerQuickLinks"
+            :key="item.path"
+            :to="item.path"
+            class="rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-blue-50"
+          >
+            <p class="font-semibold text-slate-900">{{ item.title }}</p>
+            <p class="mt-1 text-sm text-slate-600">{{ item.description }}</p>
+          </NuxtLink>
         </div>
       </section>
     </template>

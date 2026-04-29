@@ -1,9 +1,9 @@
 ---
-title: "李宏毅课程体系（深度学习 / 生成式AI）"
+title: "李宏毅课程体系（深度学习 / 生成式技术）"
 description: "中文学习者最常用的高质量课程路径之一，覆盖从基础到大模型。"
 url: "https://www.youtube.com/@HungyiLeeNTU"
 tags: ["中文学习", "李宏毅", "深度学习", "生成式AI"]
-contributor: "@cursor-agent"
+contributor: "@zhima"
 recommendation: 5
 ---
 

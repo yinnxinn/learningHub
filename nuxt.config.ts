@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const siteName = 'AI 圈学习与资讯导航'
-const siteTagline = '聚合 AI 资讯、核心学习资料与知名开源项目'
+const siteName = '智码资料分享平台'
+const siteTagline = '聚合资讯、核心学习资料与知名开源项目'
 const siteDescription =
-  'AI 圈学习与资讯导航聚合高质量 AI 资讯源、核心学习路径与知名开源项目，帮助你快速建立认知并完成实践。'
+  '智码资料分享平台聚合高质量资讯源、核心学习路径与知名开源项目，帮助你快速建立认知并完成实践。'
 const siteUrl = 'https://learninghub.example.com'
 const logoVersion = '20260112-1'
 const logoFilePath = '/logo.png'
@@ -18,7 +18,7 @@ export default defineNuxtConfig({
       },
       meta: [
         { name: 'description', content: siteDescription },
-        { name: 'keywords', content: 'AI资讯,AI学习资料,AI开源项目,LLM,Machine Learning,Agent,RAG' },
+        { name: 'keywords', content: '学习资料,技术资讯,开源项目,Python,Machine Learning,LLM' },
         { property: 'og:title', content: siteName },
         { property: 'og:description', content: siteDescription },
         { property: 'og:type', content: 'website' },

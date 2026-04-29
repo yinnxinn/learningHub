@@ -1,9 +1,9 @@
 ---
-title: "中文大模型实战资源（Datawhale / 飞桨AI Studio）"
+title: "中文大模型实战资源（Datawhale / 飞桨 Studio）"
 description: "面向中文开发者的大模型实战教程与实践平台。"
 url: "https://www.datawhale.cn/"
 tags: ["中文学习", "Datawhale", "飞桨", "LLM实践"]
-contributor: "@cursor-agent"
+contributor: "@zhima"
 recommendation: 4
 ---
 

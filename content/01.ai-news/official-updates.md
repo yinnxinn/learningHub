@@ -1,9 +1,9 @@
 ---
-title: "官方动态追踪（OpenAI / Anthropic / Google DeepMind）"
+title: "官方动态追踪（主流机构）"
 description: "追踪头部 AI 机构发布的新模型、能力更新与安全治理进展。"
 url: "https://openai.com/news/"
 tags: ["OpenAI", "Anthropic", "DeepMind", "Official"]
-contributor: "@cursor-agent"
+contributor: "@zhima"
 recommendation: 5
 cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
 ---

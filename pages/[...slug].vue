@@ -4,9 +4,9 @@ import { ExternalLink, Tag, User } from 'lucide-vue-next'
 const { page } = useContent()
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.siteName || 'Learning Hub')
-const defaultTagline = 'Curated resources for Python, machine learning, and AI'
+const defaultTagline = 'Curated resources for Python and machine learning'
 const defaultDescription =
-  'Learning Hub curates trusted resources covering Python fundamentals, machine learning, and large language models.'
+  'Learning Hub curates trusted resources covering Python fundamentals, machine learning, and practical tooling.'
 const siteTagline = computed(() => config.public.siteTagline || defaultTagline)
 const siteDescription = computed(
   () => config.public.siteDescription || defaultDescription
@@ -121,9 +121,9 @@ const sectionRoot = computed(() => {
 })
 
 const sectionLabelMap: Record<string, string> = {
-  '/01.ai-news': 'AI圈资讯头部',
-  '/02.ai-core-learning': 'AI圈核心学习资料',
-  '/03.ai-open-source': 'AI相关知名开源项目'
+  '/01.ai-news': '资讯头部',
+  '/02.ai-core-learning': '核心学习资料',
+  '/03.ai-open-source': '知名开源项目'
 }
 const sectionHomePathMap: Record<string, string> = {
   '/01.ai-news': '/ai-news',

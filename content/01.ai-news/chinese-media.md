@@ -1,9 +1,9 @@
 ---
-title: "中文 AI 媒体精选（机器之心 / 量子位 / 新智元）"
+title: "中文技术媒体精选（机器之心 / 量子位 / 新智元）"
 description: "补充中文语境下的行业新闻、技术解读与趋势观察。"
 url: "https://www.jiqizhixin.com/"
 tags: ["中文资讯", "机器之心", "量子位", "新智元"]
-contributor: "@cursor-agent"
+contributor: "@zhima"
 recommendation: 5
 ---
 
