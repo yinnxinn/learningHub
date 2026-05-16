@@ -4,8 +4,6 @@ module.exports = {
     './components/**/*.{vue,js,ts}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
-    './app.vue',
-    './error.vue',
     './content/**/*.{md,yml,json}'
   ],
   theme: {

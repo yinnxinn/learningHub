@@ -13,15 +13,15 @@
 1. 安装 Node.js 18+。
 2. 安装依赖：
    ```bash
-   npm install
+   pnpm install
    ```
 3. 启动本地开发：
    ```bash
-   npm run dev
+   pnpm dev
    ```
 4. 生成静态站点（用于 GitHub Pages / Vercel 部署）：
    ```bash
-   npm run generate
+   pnpm generate
    ```
 
 ## 目录结构
@@ -30,8 +30,9 @@
 ├── assets/                 # 全局样式（Tailwind）
 ├── components/             # 导航、搜索等可复用组件
 ├── content/                # 文档内容，子目录前缀可控制排序
-│   ├── 01.Frontend/
-│   ├── 02.Backend/
+│   ├── 01.ai-news/         # 资讯头部：官方动态、中文媒体、研究追踪等
+│   ├── 02.ai-core-learning/ # 核心学习资料：课程、教程与体系化路径
+│   ├── 03.ai-open-source/  # 知名开源项目：模型、推理、工具链与应用框架
 │   ├── index.md            # 首页内容
 │   └── template.md         # 贡献模版
 ├── layouts/default.vue     # 全局布局（侧边导航 + 搜索）
