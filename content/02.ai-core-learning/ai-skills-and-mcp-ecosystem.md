@@ -77,6 +77,10 @@ MCP 是 Anthropic 提出的开放协议，定义 AI 如何与外部工具/数据
 | **使用场景** | 用自然语言描述需求 → Claude 生成 n8n workflow JSON |
 | **突出优势** | 结合 Claude 的理解能力 + n8n 的 400+ 集成生态 |
 
+### 应用测试 MCP
+
+- [agent-qa](https://vostride.com/docs/agent-qa/mcp)：用自然语言测试 Web、Android 和 iOS，提供 memidex 持久记忆、经验证的自我改进与可审查的运行证据。需要 Node.js 24+，在待测项目中通过 `npx agent-qa mcp` 启动本地 stdio 服务；安装与配置见[快速开始](https://vostride.com/docs/agent-qa/quickstart)。运行时许可证为 FSL-1.1-ALv2，模型及服务费用随配置和用量变化。
+
 ---
 
 ## obra/superpowers — Agentic Skills 框架
